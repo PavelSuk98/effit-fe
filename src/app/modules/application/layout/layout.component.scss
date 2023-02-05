@@ -1,0 +1,119 @@
+.main-layout {
+  background-color: #f7f9fa;
+  min-height: 100vh;
+  nz-breadcrumb {
+    margin: 16px 0;
+  }
+
+  nz-content {
+    padding: 0 50px;
+  }
+
+
+
+  .inner-content {
+    //padding: 24px;
+    min-height: 280px;
+  }
+
+  nz-header {
+    background-color: #ffffff;
+    overflow: hidden;
+    border-bottom: 1px solid #c2c2c2;
+    .logo {
+      max-width: 150px;
+      float: left;
+      padding-top: 15px;
+      img {
+        float: left;
+        margin-top: -10px;
+        //width: calc(100% - 32px);
+      }
+    }
+
+    [nz-menu] {
+      line-height: 61px;
+      background: transparent;
+      text-align: center;
+      display: inline-block;
+      border-bottom: 0px;
+      display: block;
+
+      .ant-menu-item-selected {
+        color: #005fa6;
+        font-weight: 600;
+        outline: unset;
+        border-color: #005fa6;
+      }
+
+      .ant-menu-item:hover {
+        color: #005fa6;
+        font-weight: 600;
+        outline: unset;
+        border-color: #005fa6;
+      }
+      .ant-menu-item:focus {
+        outline: unset;
+      }
+      .ant-menu-item {
+        color: #005fa6;
+
+      }
+    }
+
+    .user-profile {
+      float: right;
+
+      nz-avatar {
+        margin-top: -4px;
+      }
+    }
+  }
+}
+
+::ng-deep{
+  nz-header{
+    .ant-menu-submenu-title:hover {
+      color: initial;
+      background-color: unset!important;
+    }
+    .ant-menu-submenu-open{
+      color: initial!important;
+        font-weight: 600;
+        outline: unset;
+        border-color: #005fa6!important;
+    }
+    .ant-menu-submenu-selected{
+      color: initial!important;
+        font-weight: 600;
+        outline: unset;
+        border-color: #005fa6!important;
+    }
+    .ant-menu-submenu-title{
+      transition: border-color 0.3s !important;
+    }
+  }
+
+  .logo-menu{
+    position: absolute;
+    max-width: 120px;
+  }
+
+  .logo-spacer{
+  height: 18px;
+  }
+}
+
+
+nz-footer {
+  background-color: #f7f9fa;
+}
+
+.test-version{
+  background-color: #ff0000bd!important;
+}
+
+.border-r-solid{
+  border-right-style: solid;
+  border-right-color: #c2c2c2;
+}

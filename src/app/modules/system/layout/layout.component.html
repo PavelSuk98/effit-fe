@@ -1,0 +1,18 @@
+<nz-layout class="public">
+  <nz-content>
+    <div class="inner-content">
+      <router-outlet></router-outlet>
+    </div>
+  </nz-content>
+  <nz-footer>
+    <nz-row>
+      <nz-col nzSpan="12" nzMd="6" class="text-center md:text-left">
+        V případě problému: v pracovní době po-pá 7-16 volat dispečink OIS 9131, mimo pracovní dobu volat HTS <a
+          href="tel:724 285 232">724 285 232</a>
+      </nz-col>
+      <nz-col nzSpan="12" nzMd="6" class="text-center md:text-right">
+        © {{ now | date: 'yyyy' }} Blue Partners ({{currentVersion}})
+      </nz-col>
+    </nz-row>
+  </nz-footer>
+</nz-layout>

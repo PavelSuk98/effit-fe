@@ -1,0 +1,82 @@
+<nz-layout class="main-layout">
+  <nz-header class="mb-3 shadow" [class.test-version]="testingVersion">
+    <div class="logo">
+      <button nz-button nzType="primary" (click)="showMobile()" nzGhost class="block float-left lg:hidden">
+        <i nz-icon nzType="menu" nzTheme="outline"></i>
+      </button>
+      <img src="assets/images/logo.png" class="pl-2 lg:pl-0" width="50">
+    </div>
+    <ng-container *ngIf="(loggedUser$ | async) as user">
+      <div class="user-profile cursor-pointer px-3" (click)="onLogout()" *ngIf="user.isAuthenticated">
+        <i nz-icon nzType="logout" nzTheme="outline"></i>
+        <span class="mx-2 d-none d-lg-inline-block">Odhlásit se</span>
+      </div>
+      <div class="user-profile border-r border-r-solid border-gray-700 pr-2" *ngIf="user.isAuthenticated">
+        <nz-avatar [nzText]="textForAvatar(user.Name + ' ' + user.Surname)"></nz-avatar>
+        <span class="mx-2 hidden lg:inline-block">{{ user.Name }}</span>
+      </div>
+      <a *ngIf="!user.isAuthenticated" routerLink="/auth/login" class="float-right">Přihlásit se</a>
+      <ul nz-menu nzMode="horizontal" [nzSelectable]="false" class="d-none d-lg-block" *ngIf="user.isAuthenticated">
+        <!-- <li nz-menu-item routerLink="Nastenka" nzMatchRouter translate>Menu.Links.Dashboard</li> -->
+        <li *ngxPermissionsOnly="['LEAVE_DASHBOARD']" nz-menu-item nzMatchRouter >
+          <a [routerLink]="['/hospital']" translate>Menu.Links.Hospitals</a>
+        </li>
+        <li *ngxPermissionsOnly="['LEAVE_DASHBOARD']" nz-menu-item nzMatchRouter>
+          <a [routerLink]="['/departments']" translate>Menu.Links.Departments</a>
+        </li>
+        <li *ngxPermissionsOnly="['LEAVE_DASHBOARD']" nz-menu-item nzMatchRouter>
+          <a [routerLink]="['/units']" translate>Menu.Links.units</a>
+        </li>
+        <li *ngxPermissionsOnly="['CLIENT_SEARCH_NOW', 'CLIENT_SEARCH_HISTORY', 'LEAVE_DASHBOARD']" nz-menu-item nzMatchRouter>
+          <a [routerLink]="['/search']" translate>Menu.Links.Search</a>
+        </li>
+        <li *ngxPermissionsOnly="['USER_LIST', 'LEAVE_DASHBOARD']" nz-menu-item nzMatchRouter>
+          <a [routerLink]="['/users']" translate>Menu.Links.Users</a>
+        </li>
+        <li *ngxPermissionsOnly="['PROPERTY_MANAGE', 'LEAVE_DASHBOARD']" nz-menu-item nzMatchRouter>
+          <a [routerLink]="['/settings']" translate>Menu.Links.Settings</a>
+        </li>
+      </ul>
+      <nz-dropdown-menu #menu="nzDropdownMenu">
+        <ul nz-menu nzSelectable>
+          <li nz-menu-item translate>UserProfile.menu.logout</li>
+        </ul>
+      </nz-dropdown-menu>
+    </ng-container>
+  </nz-header>
+  <nz-content>
+    <div class="inner-content">
+      <router-outlet></router-outlet>
+    </div>
+  </nz-content>
+  <nz-footer>
+    <nz-row>
+      <nz-col nzSpan="12" nzMd="6" class="text-center md:text-left">
+        V případě problému: v pracovní době po-pá 7-16 volat dispečink OIS 9131, mimo pracovní dobu volat HTS <a
+          href="tel:724 285 232">724 285 232</a>
+      </nz-col>
+      <nz-col nzSpan="12" nzMd="6" class="text-center md:text-right">
+        © {{ now | date: 'yyyy' }} Blue Partners ({{currentVersion}})
+      </nz-col>
+    </nz-row>
+  </nz-footer>
+</nz-layout>
+
+<nz-drawer nzHeight="100%" [nzVisible]="mobileMenu" [nzCloseOnNavigation]="true" (nzOnClose)="close()"
+  [nzMaskClosable]="true" nzPlacement="top" [nzTitle]="titleTpl" (nzOnClose)="close()">
+  <ng-container *nzDrawerContent>
+    <ul nz-menu nzMode="inline" [nzSelectable]="false">
+      <li *ngxPermissionsOnly="['LEAVE_DASHBOARD']" nz-menu-item (click)="close()" routerLink="hospital" nzMatchRouter translate>Menu.Links.Hospitals</li>
+      <li *ngxPermissionsOnly="['LEAVE_DASHBOARD']" nz-menu-item (click)="close()" routerLink="departments" nzMatchRouter translate>Menu.Links.Departments</li>
+      <li *ngxPermissionsOnly="['LEAVE_DASHBOARD']" nz-menu-item (click)="close()" routerLink="units" nzMatchRouter translate>Menu.Links.units</li>
+      <li *ngxPermissionsOnly="['PROPERTY_MANAGE', 'LEAVE_DASHBOARD']" nz-menu-item (click)="close()" routerLink="settings" nzMatchRouter translate>Menu.Links.Settings</li>
+      <li *ngxPermissionsOnly="['CLIENT_SEARCH_NOW', 'CLIENT_SEARCH_HISTORY', 'LEAVE_DASHBOARD']" nz-menu-item (click)="close()" routerLink="search" nzMatchRouter translate>Menu.Links.Search</li>
+      <li (click)="close()" *ngxPermissionsOnly="['USER_LIST', 'LEAVE_DASHBOARD']" nz-menu-item routerLink="users" nzMatchRouter translate>
+        Menu.Links.Users</li>
+    </ul>
+  </ng-container>
+</nz-drawer>
+
+<ng-template #titleTpl>
+  <h2 class="text-white font-weight-bold mb-0">FN MOTOL</h2>
+</ng-template>
